@@ -2,6 +2,7 @@ import unittest
 from src.sum_of_numbers import sum_of_numbers
 import time
 
+# sample unittests
 class TestSumOfNumbers(unittest.TestCase):
     
     def test_sum_of_numbers(self):
