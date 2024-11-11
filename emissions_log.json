@@ -17,5 +17,10 @@
         "emissions": {
             "tests/test_sum_of_numbers.py": 0.005011
         }
+    },
+    {
+        "repo_name": "emission_monitor",
+        "timestamp": "2024-11-11T07:54:13.480512",
+        "emissions": {}
     }
 ]
