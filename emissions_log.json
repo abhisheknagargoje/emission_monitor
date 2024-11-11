@@ -3,5 +3,19 @@
         "repo_name": "emission_monitor",
         "timestamp": "2024-11-11T07:47:15.634371",
         "emissions": {}
+    },
+    {
+        "repo_name": "emission_monitor",
+        "timestamp": "2024-11-11T07:48:37.556088",
+        "emissions": {
+            "tests/test_sum_of_numbers.py": "Error calculating emissions for tests/test_sum_of_numbers.py: signal only works in main thread of the main interpreter"
+        }
+    },
+    {
+        "repo_name": "emission_monitor",
+        "timestamp": "2024-11-11T07:52:55.966729",
+        "emissions": {
+            "tests/test_sum_of_numbers.py": 0.005011
+        }
     }
 ]
