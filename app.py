@@ -8,21 +8,20 @@ from emission_tracker import measure_emissions_g_co2_eq
 
 app = Flask(__name__)
 
-# TRACKED_REPO_DIR = "./tracked_repos"
-TRACKED_REPO_DIR = "./"
+# Paths for the current repository and emissions log
+CURRENT_REPO_DIR = "./"  # Root directory of the current repo
 LOG_FILE_PATH = "./emissions_log.json"
 
 def log_emissions_to_file(repo_name, emissions_data):
     # Check if the log file exists
     if os.path.exists(LOG_FILE_PATH):
-        # Read existing data from the log file
         with open(LOG_FILE_PATH, "r") as log_file:
             try:
                 log_entries = json.load(log_file)  # Load existing JSON data into a list
             except json.JSONDecodeError:
-                log_entries = []  # If the file is empty or has invalid JSON, start a new list
+                log_entries = []  # Start a new list if the JSON is invalid or empty
     else:
-        log_entries = []  # If the file doesn't exist, start with an empty list
+        log_entries = []  # Start with an empty list if the log file doesn't exist
 
     # Prepare the new log entry
     timestamp = datetime.now().isoformat()
@@ -47,13 +46,14 @@ def process_commit_emissions(repo_folder, modified_files, added_files, repo_name
         if not file.endswith(".pyc") and file.startswith("tests") and "test_" in os.path.basename(file):
             test_file_path = os.path.join(repo_folder, file)
             try:
-                print("processing for ", test_file_path)
+                print("Processing emissions for:", test_file_path)
                 emissions = measure_emissions_g_co2_eq(test_file_path)
                 emissions_data[file] = round(emissions, 6)  # Rounded for readability
             except Exception as e:
                 emissions_data[file] = f"Error calculating emissions for {file}: {str(e)}"
     
     log_emissions_to_file(repo_name, emissions_data)
+
 
 @app.route('/github-webhook', methods=['POST'])
 def github_webhook():
@@ -67,19 +67,19 @@ def github_webhook():
             modified_files = latest_commit.get('modified', [])
             added_files = latest_commit.get('added', [])
             
-            print(latest_commit)
-            print(added_files)
-            print(modified_files)
-            
-            repo_url = payload['repository']['clone_url']
             repo_name = payload['repository']['name']
-            repo_folder = os.path.join(TRACKED_REPO_DIR, repo_name)
             
-            
+            # Pull the latest changes to the current repo
+            print(f"Pulling latest changes for {repo_name}...")
+            repo = git.Repo(CURRENT_REPO_DIR)
+            origin = repo.remotes.origin
+            origin.pull()
+            print(f"Repository {repo_name} updated successfully!")
+
             # Start the emissions tracking in a separate thread
             thread = threading.Thread(
                 target=process_commit_emissions, 
-                args=(repo_folder, modified_files, added_files, repo_name)
+                args=(CURRENT_REPO_DIR, modified_files, added_files, repo_name)
             )
             thread.start()
 
