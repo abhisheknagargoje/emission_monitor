@@ -22,5 +22,12 @@
         "repo_name": "emission_monitor",
         "timestamp": "2024-11-11T07:54:13.480512",
         "emissions": {}
+    },
+    {
+        "repo_name": "emission_monitor",
+        "timestamp": "2024-11-11T07:55:04.880068",
+        "emissions": {
+            "tests/test_sum_of_numbers.py": 0.00141
+        }
     }
 ]
