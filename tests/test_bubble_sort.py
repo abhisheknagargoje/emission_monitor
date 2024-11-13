@@ -9,7 +9,7 @@ class TestBubbleSort(unittest.TestCase):
             ([5, 3, 8, 6, 2], [2, 3, 5, 6, 8]),     # Unsorted list
             ([], []),                               # Empty list
             ([1], [1]),                             # Single element
-            ([3, 3, 3], [3, 3, 3]),                 # All elements the same
+            ([3, 3, 3], [3, 3, 3]),                 
             ([9, 1, 4, 6, 7, 2], [1, 2, 4, 6, 7, 9])  # Random order
         ]
 

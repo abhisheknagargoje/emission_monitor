@@ -83,7 +83,7 @@ def github_webhook():
                 args=(CURRENT_REPO_DIR, modified_files, added_files, repo_name)
             )
             process.start()
-            process.join()  # Optional: Wait for the process to complete if needed
+            process.join() 
 
             # Respond immediately to avoid GitHub timeout
             return "Webhook received. Processing emissions in the background.", 200

@@ -29,5 +29,19 @@
         "emissions": {
             "tests/test_sum_of_numbers.py": 0.00141
         }
+    },
+    {
+        "repo_name": "emission_monitor",
+        "timestamp": "2024-11-11T07:59:19.342042",
+        "emissions": {
+            "tests/test_bubble_sort.py": 0.001282
+        }
+    },
+    {
+        "repo_name": "emission_monitor",
+        "timestamp": "2024-11-13T06:30:33.731986",
+        "emissions": {
+            "tests/test_bubble_sort.py": 0.00101
+        }
     }
 ]
