@@ -1,2 +1,3 @@
 .venv
 emissions_log.json
+.env

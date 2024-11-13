@@ -5,6 +5,7 @@ import threading
 import json
 from datetime import datetime
 from emission_tracker import measure_emissions_g_co2_eq
+from multiprocessing import Process
 
 app = Flask(__name__)
 
@@ -76,12 +77,13 @@ def github_webhook():
             origin.pull()
             print(f"Repository {repo_name} updated successfully!")
 
-            # Start the emissions tracking in a separate thread
-            thread = threading.Thread(
+            # Start the emissions tracking in a separate process
+            process = Process(
                 target=process_commit_emissions, 
                 args=(CURRENT_REPO_DIR, modified_files, added_files, repo_name)
             )
-            thread.start()
+            process.start()
+            process.join() 
 
             # Respond immediately to avoid GitHub timeout
             return "Webhook received. Processing emissions in the background.", 200
